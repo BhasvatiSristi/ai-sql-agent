@@ -1,0 +1,6 @@
+pandas
+langchain
+langchain-community
+openai
+streamlit
+gradio
