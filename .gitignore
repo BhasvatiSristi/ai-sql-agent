@@ -9,6 +9,10 @@ __pycache__/
 venv/
 .env/
 
+*.db
+data/
+
+
 # API keys
 *.txt
 *.key
