@@ -16,8 +16,8 @@ st.set_page_config(
 st.markdown("""
 <style>
 body {
-    background-color: #0a1020;
-    color: #dbeafe;
+    background-color: #f8fafc;
+    color: #0f172a;
 }
 
 .block-container {
@@ -27,21 +27,23 @@ body {
 .big-title {
     font-size: 40px;
     font-weight: 700;
-    color: #60a5fa;
+    color: #0f172a;
 }
 
 .card {
-    background-color: #111827;
+    background-color: #ffffff;
     padding: 20px;
     border-radius: 12px;
     margin-bottom: 20px;
-    border: 1px solid #2563eb;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
 }
 
 .stTextInput > div > div > input {
-    background-color: #0f172a;
-    color: #dbeafe;
-    border: 1px solid #2563eb;
+    background-color: #ffffff;
+    color: #0f172a;
+    border: 1px solid #cbd5f5;
+    border-radius: 8px;
 }
 
 .stButton > button {
@@ -50,13 +52,19 @@ body {
     border-radius: 8px;
     padding: 8px 16px;
     border: none;
+    font-weight: 600;
 }
 
 .stButton > button:hover {
     background-color: #1d4ed8;
 }
+
+.stDataFrame {
+    background-color: white;
+}
 </style>
 """, unsafe_allow_html=True)
+
 
 
 SYSTEM_PROMPT = """
