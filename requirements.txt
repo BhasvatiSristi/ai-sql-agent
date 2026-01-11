@@ -3,4 +3,4 @@ langchain
 langchain-community
 openai
 streamlit
-gradio
+plotly
