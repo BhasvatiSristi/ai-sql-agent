@@ -15,63 +15,66 @@ st.set_page_config(
 
 st.markdown("""
 <style>
+/* Page */
 body {
-    background: linear-gradient(135deg, #f8fafc, #eef2ff);
-    color: #0f172a;
+    background-color: #0e1117;
+    color: #e5e7eb;
 }
 
-.block-container {
-    padding-top: 2rem;
-}
-
+/* Title */
 .big-title {
-    font-size: 42px;
-    font-weight: 800;
-    color: #1e293b;
+    font-size: 40px;
+    font-weight: 700;
+    color: #e5e7eb;
 }
 
+/* Cards (SQL, Explanation, Results) */
 .card {
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(10px);
+    background-color: #161b22;
     padding: 22px;
-    border-radius: 16px;
+    border-radius: 14px;
     margin-bottom: 20px;
-    border: 1px solid rgba(99,102,241,0.15);
-    box-shadow: 0 10px 30px rgba(99,102,241,0.08);
+    border: 1px solid #30363d;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.02);
 }
 
+/* Input box */
 .stTextInput > div > div > input {
-    background: rgba(255,255,255,0.9);
-    color: #0f172a;
-    border: 1px solid #c7d2fe;
+    background-color: #0d1117;
+    color: #e5e7eb;
+    border: 1px solid #30363d;
     border-radius: 10px;
     padding: 10px;
 }
 
+/* Input focus glow */
 .stTextInput > div > div > input:focus {
     border-color: #6366f1;
-    box-shadow: 0 0 0 2px rgba(99,102,241,0.2);
+    box-shadow: 0 0 0 2px rgba(99,102,241,0.3);
 }
 
+/* Button */
 .stButton > button {
     background: linear-gradient(135deg, #6366f1, #4f46e5);
     color: white;
     border-radius: 12px;
-    padding: 10px 20px;
+    padding: 10px 22px;
     border: none;
     font-weight: 600;
-    box-shadow: 0 6px 20px rgba(79,70,229,0.3);
+    box-shadow: 0 6px 18px rgba(79,70,229,0.4);
 }
 
+/* Button hover */
 .stButton > button:hover {
     background: linear-gradient(135deg, #4f46e5, #4338ca);
     transform: translateY(-1px);
 }
 
+/* Data table */
 .stDataFrame {
-    background-color: white;
+    background-color: #0d1117;
     border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    border: 1px solid #30363d;
 }
 </style>
 """, unsafe_allow_html=True)
