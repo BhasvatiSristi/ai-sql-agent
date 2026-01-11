@@ -3,13 +3,15 @@ import sqlite3
 import pandas as pd
 import plotly.express as px
 from openai import OpenAI
-import os
 
-import setup_db
-
-
+# -------------------------------
+# OpenAI client (reads key from Streamlit Secrets)
+# -------------------------------
 client = OpenAI()
 
+# -------------------------------
+# SQL Agent System Prompt
+# -------------------------------
 SYSTEM_PROMPT = """
 You are a professional AI SQL Agent for an e-commerce analytics system.
 
@@ -19,7 +21,7 @@ IMPORTANT BUSINESS LOGIC:
 
 DATABASE:
 olist_orders_dataset(order_id, customer_id, order_status, order_purchase_timestamp)
-olist_customers_dataset(customer_id,customer_city, customer_state)
+olist_customers_dataset(customer_id, customer_city, customer_state)
 olist_order_items_dataset(order_id, product_id, price, freight_value)
 olist_products_dataset(product_id, product_category_name)
 
@@ -37,6 +39,9 @@ ANSWER:
 <plain English>
 """
 
+# -------------------------------
+# Helper functions
+# -------------------------------
 def ask_llm(question):
     response = client.chat.completions.create(
         model="gpt-4o-mini",
@@ -47,32 +52,92 @@ def ask_llm(question):
     )
     return response.choices[0].message.content
 
+
 def run_sql(sql):
     conn = sqlite3.connect("olist.db")
     df = pd.read_sql_query(sql, conn)
     conn.close()
     return df
 
-st.set_page_config(page_title="AI Data Analyst", layout="wide")
 
-st.title("🧠 AI Data Analyst — SQL Agent")
-st.write("Ask questions about the e-commerce data in natural language")
+# -------------------------------
+# Streamlit Page Config
+# -------------------------------
+st.set_page_config(page_title="AI Data Analyst", page_icon="📊", layout="wide")
 
-question = st.text_input("Ask your data question:")
+st.title("🧠 AI Data Analyst Copilot")
+st.write("Ask natural-language business questions and get instant insights from the e-commerce database.")
 
-if st.button("Run Query"):
-    if question:
-        llm_output = ask_llm(question)
+# -------------------------------
+# Example Questions
+# -------------------------------
+st.subheader("Try one of these examples 👇")
 
-        sql = llm_output.split("SQL_QUERY:")[1].split("ANSWER:")[0]
-        sql = sql.replace("```sql", "").replace("```", "").strip()
+examples = [
+    "Which 5 product categories generated the highest total revenue?",
+    "What is the monthly sales trend over time?",
+    "Which 10 sellers generated the most revenue?",
+    "Which cities have the highest number of customers?",
+    "What is the average order value?"
+]
 
-        answer = llm_output.split("ANSWER:")[1]
+cols = st.columns(len(examples))
+selected = None
 
-        df = run_sql(sql)
+for i, ex in enumerate(examples):
+    if cols[i].button(ex):
+        selected = ex
 
-        st.subheader("Result")
+# -------------------------------
+# User Input
+# -------------------------------
+question = st.text_input(
+    "Or ask your own question:",
+    value=selected if selected else ""
+)
+
+# -------------------------------
+# Run Query
+# -------------------------------
+if st.button("Run Analysis"):
+    if not question:
+        st.warning("Please enter a question.")
+    else:
+        with st.spinner("Thinking like a data analyst..."):
+            llm_output = ask_llm(question)
+
+            # Extract SQL
+            sql = llm_output.split("SQL_QUERY:")[1].split("ANSWER:")[0]
+            sql = sql.replace("```sql", "").replace("```", "").strip()
+
+            # Extract answer
+            answer = llm_output.split("ANSWER:")[1].strip()
+
+            # Run SQL
+            df = run_sql(sql)
+
+        # -------------------------------
+        # Display Results
+        # -------------------------------
+        col1, col2 = st.columns([1, 1])
+
+        with col1:
+            st.subheader("🧾 Generated SQL")
+            st.code(sql)
+
+        with col2:
+            st.subheader("🤖 AI Explanation")
+            st.write(answer)
+
+        st.subheader("📊 Query Result")
         st.dataframe(df)
 
-        st.subheader("Generated SQL")
-        st.code(sql)
+        # -------------------------------
+        # Auto Chart
+        # -------------------------------
+        if len(df.columns) >= 2 and df.shape[0] > 0:
+            try:
+                fig = px.bar(df, x=df.columns[0], y=df.columns[1])
+                st.plotly_chart(fig, use_container_width=True)
+            except:
+                pass
