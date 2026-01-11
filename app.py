@@ -3,6 +3,7 @@ import sqlite3
 import pandas as pd
 import plotly.express as px
 from openai import OpenAI
+import setup_db
 
 client = OpenAI()
 
@@ -83,7 +84,7 @@ st.write("Ask business questions and get instant data insights")
 question = st.text_input("Ask a question like: *Top 5 categories by revenue*")
 
 if st.button("Run Analysis"):
-    with st.spinner("Thinking like a data scientist..."):
+    with st.spinner("Thinking..."):
         llm_output = ask_llm(question)
 
         sql = llm_output.split("SQL_QUERY:")[1].split("ANSWER:")[0]
