@@ -141,6 +141,9 @@ if st.button("Run Analysis"):
 
         df = run_sql(sql)
 
+        st.markdown("<div class='card'><h3>Query Result</h3></div>", unsafe_allow_html=True)
+        st.dataframe(df)
+
         col1, col2 = st.columns([1,1])
 
         with col1:
@@ -151,8 +154,7 @@ if st.button("Run Analysis"):
             st.markdown("<div class='card'><h3>AI Explanation</h3></div>", unsafe_allow_html=True)
             st.write(answer)
 
-        st.markdown("<div class='card'><h3>Query Result</h3></div>", unsafe_allow_html=True)
-        st.dataframe(df)
+
 
         if len(df.columns) >= 2:
             fig = px.bar(df, x=df.columns[0], y=df.columns[1])
