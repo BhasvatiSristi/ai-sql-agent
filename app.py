@@ -77,7 +77,7 @@ examples = [
     "Top 5 product categories",
     "Monthly sales trend over time",
     "Top 10 sellers as per revenue",
-    "Cities with highest number of customers",
+    "Cities with highest customers",
     "Average order value?"
 ]
 
