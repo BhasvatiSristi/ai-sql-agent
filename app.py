@@ -74,11 +74,11 @@ st.write("Ask natural-language business questions and get instant insights from 
 st.subheader("Try one of these examples 👇")
 
 examples = [
-    "Which 5 product categories generated the highest total revenue?",
-    "What is the monthly sales trend over time?",
-    "Which 10 sellers generated the most revenue?",
-    "Which cities have the highest number of customers?",
-    "What is the average order value?"
+    "Top 5 product categories",
+    "Monthly sales trend over time",
+    "Top 10 sellers as per revenue",
+    "Cities with highest number of customers",
+    "Average order value?"
 ]
 
 cols = st.columns(len(examples))
