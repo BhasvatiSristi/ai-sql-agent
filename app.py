@@ -16,7 +16,7 @@ st.set_page_config(
 st.markdown("""
 <style>
 body {
-    background-color: #f8fafc;
+    background: linear-gradient(135deg, #f8fafc, #eef2ff);
     color: #0f172a;
 }
 
@@ -25,45 +25,57 @@ body {
 }
 
 .big-title {
-    font-size: 40px;
-    font-weight: 700;
-    color: #0f172a;
+    font-size: 42px;
+    font-weight: 800;
+    color: #1e293b;
 }
 
 .card {
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px);
+    padding: 22px;
+    border-radius: 16px;
     margin-bottom: 20px;
-    border: 1px solid #e5e7eb;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    border: 1px solid rgba(99,102,241,0.15);
+    box-shadow: 0 10px 30px rgba(99,102,241,0.08);
 }
 
 .stTextInput > div > div > input {
-    background-color: #ffffff;
+    background: rgba(255,255,255,0.9);
     color: #0f172a;
-    border: 1px solid #cbd5f5;
-    border-radius: 8px;
+    border: 1px solid #c7d2fe;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.stTextInput > div > div > input:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 2px rgba(99,102,241,0.2);
 }
 
 .stButton > button {
-    background-color: #2563eb;
+    background: linear-gradient(135deg, #6366f1, #4f46e5);
     color: white;
-    border-radius: 8px;
-    padding: 8px 16px;
+    border-radius: 12px;
+    padding: 10px 20px;
     border: none;
     font-weight: 600;
+    box-shadow: 0 6px 20px rgba(79,70,229,0.3);
 }
 
 .stButton > button:hover {
-    background-color: #1d4ed8;
+    background: linear-gradient(135deg, #4f46e5, #4338ca);
+    transform: translateY(-1px);
 }
 
 .stDataFrame {
     background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
 }
 </style>
 """, unsafe_allow_html=True)
+
 
 
 
