@@ -4,14 +4,36 @@ import pandas as pd
 import plotly.express as px
 from openai import OpenAI
 
-# -------------------------------
-# OpenAI client (reads key from Streamlit Secrets)
-# -------------------------------
 client = OpenAI()
 
-# -------------------------------
-# SQL Agent System Prompt
-# -------------------------------
+st.set_page_config(
+    page_title="AI Data Analyst",
+    page_icon="📊",
+    layout="wide"
+)
+
+st.markdown("""
+<style>
+body {
+    background-color: #0e1117;
+    color: white;
+}
+.block-container {
+    padding-top: 2rem;
+}
+.big-title {
+    font-size: 40px;
+    font-weight: 700;
+}
+.card {
+    background-color: #161b22;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+</style>
+""", unsafe_allow_html=True)
+
 SYSTEM_PROMPT = """
 You are a professional AI SQL Agent for an e-commerce analytics system.
 
@@ -39,9 +61,6 @@ ANSWER:
 <plain English>
 """
 
-# -------------------------------
-# Helper functions
-# -------------------------------
 def ask_llm(question):
     response = client.chat.completions.create(
         model="gpt-4o-mini",
@@ -52,92 +71,41 @@ def ask_llm(question):
     )
     return response.choices[0].message.content
 
-
 def run_sql(sql):
     conn = sqlite3.connect("olist.db")
     df = pd.read_sql_query(sql, conn)
     conn.close()
     return df
 
+st.markdown("<div class='big-title'>🧠 AI Data Analyst</div>", unsafe_allow_html=True)
+st.write("Ask business questions and get instant data insights")
 
-# -------------------------------
-# Streamlit Page Config
-# -------------------------------
-st.set_page_config(page_title="AI Data Analyst", page_icon="📊", layout="wide")
+question = st.text_input("Ask a question like: *Top 5 categories by revenue*")
 
-st.title("🧠 AI Data Analyst Copilot")
-st.write("Ask natural-language business questions and get instant insights from the e-commerce database.")
-
-# -------------------------------
-# Example Questions
-# -------------------------------
-st.subheader("Try one of these examples 👇")
-
-examples = [
-    "Top 5 product categories",
-    "Monthly sales trend over time",
-    "Top 10 sellers as per revenue",
-    "Cities with highest customers",
-    "Average order value?"
-]
-
-cols = st.columns(len(examples))
-selected = None
-
-for i, ex in enumerate(examples):
-    if cols[i].button(ex):
-        selected = ex
-
-# -------------------------------
-# User Input
-# -------------------------------
-question = st.text_input(
-    "Or ask your own question:",
-    value=selected if selected else ""
-)
-
-# -------------------------------
-# Run Query
-# -------------------------------
 if st.button("Run Analysis"):
-    if not question:
-        st.warning("Please enter a question.")
-    else:
-        with st.spinner("Thinking like a data analyst..."):
-            llm_output = ask_llm(question)
+    with st.spinner("Thinking like a data scientist..."):
+        llm_output = ask_llm(question)
 
-            # Extract SQL
-            sql = llm_output.split("SQL_QUERY:")[1].split("ANSWER:")[0]
-            sql = sql.replace("```sql", "").replace("```", "").strip()
+        sql = llm_output.split("SQL_QUERY:")[1].split("ANSWER:")[0]
+        sql = sql.replace("```sql", "").replace("```", "").strip()
 
-            # Extract answer
-            answer = llm_output.split("ANSWER:")[1].strip()
+        answer = llm_output.split("ANSWER:")[1]
 
-            # Run SQL
-            df = run_sql(sql)
+        df = run_sql(sql)
 
-        # -------------------------------
-        # Display Results
-        # -------------------------------
-        col1, col2 = st.columns([1, 1])
+        col1, col2 = st.columns([1,1])
 
         with col1:
-            st.subheader("🧾 Generated SQL")
+            st.markdown("<div class='card'><h3>Generated SQL</h3></div>", unsafe_allow_html=True)
             st.code(sql)
 
         with col2:
-            st.subheader("🤖 AI Explanation")
+            st.markdown("<div class='card'><h3>AI Explanation</h3></div>", unsafe_allow_html=True)
             st.write(answer)
 
-        st.subheader("📊 Query Result")
+        st.markdown("<div class='card'><h3>Query Result</h3></div>", unsafe_allow_html=True)
         st.dataframe(df)
 
-        # -------------------------------
-        # Auto Chart
-        # -------------------------------
-        if len(df.columns) >= 2 and df.shape[0] > 0:
-            try:
-                fig = px.bar(df, x=df.columns[0], y=df.columns[1])
-                st.plotly_chart(fig, use_container_width=True)
-            except:
-                pass
+        if len(df.columns) >= 2:
+            fig = px.bar(df, x=df.columns[0], y=df.columns[1])
+            st.plotly_chart(fig, use_container_width=True)
