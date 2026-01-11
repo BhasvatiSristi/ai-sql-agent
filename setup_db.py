@@ -10,19 +10,21 @@ print("Building database...")
 
 files = {
     "olist_orders_dataset":
-        "https://raw.githubusercontent.com/andrevcmelo/TCC_Andre_Melo_Pos-CESAR_SCHOOL_AED/main/olist_orders_dataset.csv",
+        "https://drive.google.com/uc?export=download&id=1K5VxzC9xicBYE7PIxFRUSEc2k4ljowNC",
     "olist_products_dataset":
-        "https://raw.githubusercontent.com/andrevcmelo/TCC_Andre_Melo_Pos-CESAR_SCHOOL_AED/main/olist_products_dataset.csv",
+        "https://drive.google.com/uc?export=download&id=1QsdJXSi2Xuf9hSk2zoRYn0HDXRiKHR_p",
     "olist_order_items_dataset":
-        "https://raw.githubusercontent.com/andrevcmelo/TCC_Andre_Melo_Pos-CESAR_SCHOOL_AED/main/olist_order_items_dataset.csv",
+        "https://drive.google.com/uc?export=download&id=1YBugkkeSUxdnyJ8XwiVbU9qwzKEtCN5F",
     "olist_order_payments_dataset":
-        "https://raw.githubusercontent.com/andrevcmelo/TCC_Andre_Melo_Pos-CESAR_SCHOOL_AED/main/olist_order_payments_dataset.csv",
+        "https://drive.google.com/uc?export=download&id=1eWf0YUoeafabWbm_9pcuJM7NOEDVAH98",
     "olist_order_reviews_dataset":
-        "https://raw.githubusercontent.com/andrevcmelo/TCC_Andre_Melo_Pos-CESAR_SCHOOL_AED/main/olist_order_reviews_dataset.csv",
+        "https://drive.google.com/uc?export=download&id=1BSX-yhQXk8chqLDN7dWlivOsG3bXR-Zb",
     "olist_customers_dataset":
-        "https://raw.githubusercontent.com/andrevcmelo/TCC_Andre_Melo_Pos-CESAR_SCHOOL_AED/main/olist_customers_dataset.csv",
+        "https://drive.google.com/uc?export=download&id=1o8agr-ZQQNfgtDkJqNJWMl3I-5aCYxzE",
     "olist_sellers_dataset":
-        "https://raw.githubusercontent.com/andrevcmelo/TCC_Andre_Melo_Pos-CESAR_SCHOOL_AED/main/olist_sellers_dataset.csv",
+        "https://drive.google.com/uc?export=download&id=1Ma4y_H0Jh3RHUDk7Nzqt6vUart9-fhdb",
+    "olist_geolocation_dataset":
+        "https://drive.google.com/uc?export=download&id=1kyJXRIek-tMaDxq59oyF3f1t3-qR5hkL"
 }
 
 
