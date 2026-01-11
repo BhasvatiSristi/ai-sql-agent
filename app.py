@@ -16,24 +16,48 @@ st.set_page_config(
 st.markdown("""
 <style>
 body {
-    background-color: #0e1117;
-    color: white;
+    background-color: #0a1020;
+    color: #dbeafe;
 }
+
 .block-container {
     padding-top: 2rem;
 }
+
 .big-title {
     font-size: 40px;
     font-weight: 700;
+    color: #60a5fa;
 }
+
 .card {
-    background-color: #161b22;
+    background-color: #111827;
     padding: 20px;
     border-radius: 12px;
     margin-bottom: 20px;
+    border: 1px solid #2563eb;
+}
+
+.stTextInput > div > div > input {
+    background-color: #0f172a;
+    color: #dbeafe;
+    border: 1px solid #2563eb;
+}
+
+.stButton > button {
+    background-color: #2563eb;
+    color: white;
+    border-radius: 8px;
+    padding: 8px 16px;
+    border: none;
+}
+
+.stButton > button:hover {
+    background-color: #1d4ed8;
 }
 </style>
 """, unsafe_allow_html=True)
+
 
 SYSTEM_PROMPT = """
 You are a professional AI SQL Agent for an e-commerce analytics system.
@@ -78,10 +102,10 @@ def run_sql(sql):
     conn.close()
     return df
 
-st.markdown("<div class='big-title'>🧠 AI Data Analyst</div>", unsafe_allow_html=True)
+st.markdown("<div class='big-title'>🧠 SQL Agent</div>", unsafe_allow_html=True)
 st.write("Ask business questions and get instant data insights")
 
-question = st.text_input("Ask a question like: *Top 5 categories by revenue*")
+question = st.text_input("Ask a question like:")
 
 if st.button("Run Analysis"):
     with st.spinner("Thinking..."):
