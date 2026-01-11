@@ -5,6 +5,9 @@ import plotly.express as px
 from openai import OpenAI
 import os
 
+import setup_db
+
+
 client = OpenAI()
 
 SYSTEM_PROMPT = """
